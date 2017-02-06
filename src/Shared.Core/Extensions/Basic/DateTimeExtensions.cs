@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using GoldenEye.Shared.Core.Objects.Dates;
-using GoldenEye.Shared.Core.Resources;
 
 namespace GoldenEye.Shared.Core.Extensions.Basic
 {
@@ -373,28 +372,28 @@ namespace GoldenEye.Shared.Core.Extensions.Basic
         }
 
 
-        public static string ToUserFriendlyTimePeriod(this TimeSpan timespan)
-        {
-            String returnString = null;
+        //public static string ToUserFriendlyTimePeriod(this TimeSpan timespan)
+        //{
+        //    String returnString = null;
 
-            if (timespan.TotalHours < 1)
-            {
-                returnString = String.Format(DateTimeResources.xMinutesAgo, timespan.Minutes);
-            }
-            else if (timespan.TotalHours < 24)
-            {
-                returnString = String.Format(DateTimeResources.xHoursAgo, timespan.Hours);
-            }
-            else if (timespan.TotalDays < 2)
-            {
-                returnString = String.Format(DateTimeResources.OneDayxHours, timespan.Hours);
-            }
-            else if (timespan.TotalDays > 2)
-            {
-                returnString = String.Format(DateTimeResources.xDaysAgo, timespan.Days);
-            }
+        //    if (timespan.TotalHours < 1)
+        //    {
+        //        returnString = String.Format(DateTimeResources.xMinutesAgo, timespan.Minutes);
+        //    }
+        //    else if (timespan.TotalHours < 24)
+        //    {
+        //        returnString = String.Format(DateTimeResources.xHoursAgo, timespan.Hours);
+        //    }
+        //    else if (timespan.TotalDays < 2)
+        //    {
+        //        returnString = String.Format(DateTimeResources.OneDayxHours, timespan.Hours);
+        //    }
+        //    else if (timespan.TotalDays > 2)
+        //    {
+        //        returnString = String.Format(DateTimeResources.xDaysAgo, timespan.Days);
+        //    }
 
-            return returnString;
-        }
+        //    return returnString;
+        //}
     }
 }

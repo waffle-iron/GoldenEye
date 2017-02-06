@@ -26,18 +26,18 @@ namespace GoldenEye.Shared.Core.Validation.Validators
         {
             var result = base.Validate(instance);
 
-            var innerType = typeof(T).GetGenericArguments().First();
-            var validator = ValidationEngine.GetValidator(innerType);
+            //var innerType = typeof(T).GetGenericArguments().First();
+            //var validator = ValidationEngine.GetValidator(innerType);
 
-            if (validator == null)
+            //if (validator == null)
                 return result;
 
-            var itemValidation = validator.Validate(instance.Item);
+            //var itemValidation = validator.Validate(instance.Item);
 
-            if (itemValidation.IsValid)
-                return result;
+            //if (itemValidation.IsValid)
+            //    return result;
 
-            return new ValidationResult((result.Errors ?? new List<ValidationFailure>()).Concat(itemValidation.Errors));
+            //return new ValidationResult((result.Errors ?? new List<ValidationFailure>()).Concat(itemValidation.Errors));
         }
     }
 }

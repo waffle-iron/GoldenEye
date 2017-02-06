@@ -13,10 +13,10 @@ namespace GoldenEye.Shared.Core.Extensions.Basic
             var type = typeof(T);
             var ignoreList = new List<string>(ignore);
             var unequalProperties =
-                from pi in type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                from pi in type.GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance)
                 where !ignoreList.Contains(pi.Name)
-                let selfValue = type.GetProperty(pi.Name).GetValue(self, null)
-                let toValue = type.GetProperty(pi.Name).GetValue(to, null)
+                let selfValue = type.GetTypeInfo().GetProperty(pi.Name).GetValue(self, null)
+                let toValue = type.GetTypeInfo().GetProperty(pi.Name).GetValue(to, null)
                 where selfValue != toValue && (selfValue == null || !selfValue.Equals(toValue))
                 select selfValue;
             return !unequalProperties.Any();

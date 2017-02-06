@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using GoldenEye.Shared.Core.Extensions.Collections;
-using GoldenEye.Shared.Core.Extensions.Reflection;
 
 namespace GoldenEye.Shared.Core.Extensions.Lambda
 {
@@ -132,37 +131,37 @@ namespace GoldenEye.Shared.Core.Extensions.Lambda
         /// Checks, whther selector returns instance of a class.
         /// String is not a class in this method.
         /// </summary>
-        public static bool IsClassSelector<T>(this Expression<Func<T, object>> selector)
-        {
-            var selectorType = selector.GetValueType();
-            var isClass = selectorType.IsClass || selectorType.Implements<IEnumerable>();
+        //public static bool IsClassSelector<T>(this Expression<Func<T, object>> selector)
+        //{
+        //    var selectorType = selector.GetValueType();
+        //    var isClass = selectorType.IsClass || selectorType.Implements<IEnumerable>();
 
-            return isClass && selectorType != typeof(string); // selector is for class, but not string
-        }
+        //    return isClass && selectorType != typeof(string); // selector is for class, but not string
+        //}
 
         /// <summary>
         /// Checks, whether underlying type of value returned by selector matches the underlying type of value.
         /// </summary>
         /// <param name="value"></param>
-        public static bool MatchesTypeOf<T>(this Expression<Func<T, object>> selector, object value, bool matchEnumAndInt = true)
-        {
-            var selectorType = selector.GetValueType();
-            var selectorUnderlyingType = Nullable.GetUnderlyingType(selectorType);
+        //public static bool MatchesTypeOf<T>(this Expression<Func<T, object>> selector, object value, bool matchEnumAndInt = true)
+        //{
+        //    var selectorType = selector.GetValueType();
+        //    var selectorUnderlyingType = Nullable.GetUnderlyingType(selectorType);
 
-            var isClass = selectorType.IsClass || selectorType.Implements<IEnumerable>();
+        //    var isClass = selectorType.IsClass || selectorType.Implements<IEnumerable>();
 
-            var enumMatch = (matchEnumAndInt    // match Enum to int selector,
-                         && value != null       // value is not null
-                         && value is Enum)      // and is Enum
-                         && (                   // and
-                                selectorType == typeof(int)             // selector is for int
-                             || selectorUnderlyingType == typeof(int)   // or selector is for int?
-                             );
+        //    var enumMatch = (matchEnumAndInt    // match Enum to int selector,
+        //                 && value != null       // value is not null
+        //                 && value is Enum)      // and is Enum
+        //                 && (                   // and
+        //                        selectorType == typeof(int)             // selector is for int
+        //                     || selectorUnderlyingType == typeof(int)   // or selector is for int?
+        //                     );
 
-            return (isClass && value == null) // selector is for class and value is null
-                || (selectorUnderlyingType != null && (value == null || selectorUnderlyingType == value.GetType())) // selector is for Nullable<> and value is null or matches the underlying type
-                || selectorType == value.GetType() // selector is for value type and types have to match
-                || enumMatch;  // selector is for int or int? and value is Enum
-        }
+        //    return (isClass && value == null) // selector is for class and value is null
+        //        || (selectorUnderlyingType != null && (value == null || selectorUnderlyingType == value.GetType())) // selector is for Nullable<> and value is null or matches the underlying type
+        //        || selectorType == value.GetType() // selector is for value type and types have to match
+        //        || enumMatch;  // selector is for int or int? and value is Enum
+        //}
     }
 }

@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Linq.Expressions;
-using System.Runtime.Serialization;
 using GoldenEye.Shared.Core.Extensions.Basic;
 
 namespace GoldenEye.Shared.Core.Utils.Localization
 {
-    [Serializable]
-    [DataContract]
+
     public class ResourceQualifiedKey
     {
         private Type _resourceType;
@@ -28,10 +26,10 @@ namespace GoldenEye.Shared.Core.Utils.Localization
             }
         }
 
-        [DataMember]
+         
         private string ResourceTypeString { get; set; }
 
-        [DataMember]
+         
         public string ResourceId { get; set; }
 
         public ResourceQualifiedKey()

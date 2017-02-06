@@ -1,17 +1,16 @@
 ﻿using System.Runtime.Serialization;
-using GoldenEye.Shared.Core.Validation;
 
 namespace GoldenEye.Shared.Core.Objects.Responses
 {
     [DataContract]
-    public abstract class ResponseBase : ValidatableObjectBase, IResponse
+    public abstract class ResponseBase : IResponse//ValidatableObjectBase
     {
-        [DataMember]
-        public FluentValidation.Results.ValidationResult ValidationResult { get; set; }
+         
+        //public FluentValidation.Results.ValidationResult ValidationResult { get; set; }
 
-        public ResponseBase()
-        {
-            ValidationResult = new FluentValidation.Results.ValidationResult();
-        }
+        //public ResponseBase()
+        //{
+        //    ValidationResult = new FluentValidation.Results.ValidationResult();
+        //}
     }
 }

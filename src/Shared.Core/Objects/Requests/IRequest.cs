@@ -1,4 +1,5 @@
-﻿using GoldenEye.Shared.Core.Validation;
+﻿
+using GoldenEye.Shared.Core.Validation;
 
 namespace GoldenEye.Shared.Core.Objects.Requests
 {

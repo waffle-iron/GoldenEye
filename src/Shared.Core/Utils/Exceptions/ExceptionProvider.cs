@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using GoldenEye.Shared.Core.IOC;
 
 namespace GoldenEye.Shared.Core.Utils.Exceptions
 {
@@ -35,7 +34,7 @@ namespace GoldenEye.Shared.Core.Utils.Exceptions
 
         public IEnumerable<IExceptionHandler> ExceptionHandlers
         {
-            get { return IOCContainer.GetAll<IExceptionHandler>(); }
+            get { return null; }
         }
     }
 }

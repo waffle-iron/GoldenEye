@@ -7,7 +7,7 @@ namespace GoldenEye.Shared.Core.Utils.Localization
     {
         string LookupResource(Type resourceManagerProvider, string resourceKey, params object[] formatParams);
         string LookupResource<T>(string resourceKey, params object[] formatParams);
-        string LookupResource(ResourceQualifiedKey resourceQualifiedKey, params object[] formatParams);
+        //string LookupResource(ResourceQualifiedKey resourceQualifiedKey, params object[] formatParams);
         ResourceManager GetResourceManager(Type resourceManagerProvider);
     }
 }

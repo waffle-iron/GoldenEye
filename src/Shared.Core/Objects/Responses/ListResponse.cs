@@ -12,7 +12,7 @@ namespace GoldenEye.Shared.Core.Objects.Responses
         /// <summary>
         /// List of records
         /// </summary>
-        [DataMember]
+         
         public IList<T> Items { get; set; }
 
         public ListResponse()
@@ -41,12 +41,12 @@ namespace GoldenEye.Shared.Core.Objects.Responses
             return new ListResponse<T>(items);
         }
 
-        public static ListResponse<T> Failure(FluentValidation.Results.ValidationResult returnInfo)
-        {
-            return new ListResponse<T>
-            {
-                ValidationResult = returnInfo
-            };
-        }
+        //public static ListResponse<T> Failure(FluentValidation.Results.ValidationResult returnInfo)
+        //{
+        //    return new ListResponse<T>
+        //    {
+        //        ValidationResult = returnInfo
+        //    };
+        //}
     }
 }

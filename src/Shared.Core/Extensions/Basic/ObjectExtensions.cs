@@ -34,7 +34,7 @@ namespace GoldenEye.Shared.Core.Extensions.Basic
             var isNullable = underlyingType != null;
             var realType = underlyingType ?? type;
 
-            if (obj == null && !isNullable && !type.IsClass)
+            if (obj == null && !isNullable && !type.GetTypeInfo().IsClass)
             {
                 throw new InvalidCastException("Cannot assign null to non-reference type");
             }
@@ -44,7 +44,7 @@ namespace GoldenEye.Shared.Core.Extensions.Basic
                 return default(T);
             }
 
-            if (!realType.IsEnum)
+            if (!realType.GetTypeInfo().IsEnum)
             {
                 return (T)obj;
             }
@@ -95,7 +95,7 @@ namespace GoldenEye.Shared.Core.Extensions.Basic
 
         public static object GetDefault(Type type, object defaultValue = null)
         {
-            return type.IsValueType ? Activator.CreateInstance(type) : defaultValue;
+            return type.GetTypeInfo().IsValueType ? Activator.CreateInstance(type) : defaultValue;
         }
 
         public static T CreateOrDefault<T>()
@@ -111,7 +111,7 @@ namespace GoldenEye.Shared.Core.Extensions.Basic
 
         public static object CreateOrDefault(Type type)
         {
-            return (type.GetConstructor(EmptyTypes) != null) ? Activator.CreateInstance(type) : GetDefault(type);
+            return (type.GetTypeInfo().GetConstructor(EmptyTypes) != null) ? Activator.CreateInstance(type) : GetDefault(type);
         }
               
         public static object GetValue(this object obj, string propertyName, object defaultValue = null)
@@ -249,19 +249,19 @@ namespace GoldenEye.Shared.Core.Extensions.Basic
         
         public static object Invoke<T>(this Type type, T obj, string methodName, params object[] parameters)
         {
-            MethodInfo method = type.GetMethod(methodName);
+            MethodInfo method = type.GetTypeInfo().GetMethod(methodName);
             return method.Invoke(obj, parameters);
         }
         public static object InvokeGeneric<T>(this Type type, T obj, string methodName, Type[] types, params object[] parameters)
         {
-            MethodInfo method = type.GetMethod(methodName);
+            MethodInfo method = type.GetTypeInfo().GetMethod(methodName);
             MethodInfo generic = method.MakeGenericMethod(types);
             return generic.Invoke(obj, parameters);
         }
 
         public static object InvokeGeneric<T>(T obj, string methodName, Type[] types, params object[] parameters)
         {
-            MethodInfo method = typeof(T).GetMethod(methodName);
+            MethodInfo method = typeof(T).GetTypeInfo().GetMethod(methodName);
             MethodInfo generic = method.MakeGenericMethod(types);
             return generic.Invoke(obj, parameters);
         }
