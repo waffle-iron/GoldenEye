@@ -1,36 +1,48 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using FluentValidation;
 using FluentValidation.Results;
+using ValidationContext = System.ComponentModel.DataAnnotations.ValidationContext;
 
 namespace GoldenEye.Shared.Core.Validation
 {
     //[Serializable]
     public class ValidatableObjectBase : IValidatable
     {
-        //public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        //{
-        //    return Validate().Errors
-        //      .Select(e => new ValidationResult(e.ErrorMessage, new[] { e.PropertyName })).ToList();
-        //}
+        public IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> Validate(ValidationContext validationContext)
+        {
+            throw new NotImplementedException();
+            //return Validate().Errors
+            //  .Select(e => new ValidationResult(e.ErrorMessage, new[] { e.PropertyName })).ToList();
+        }
 
         public FluentValidation.Results.ValidationResult Validate()
         {
-            return null;
+            var validationResult = ValidationEngine.Validate(GetType(), this);
+
+            if (validationResult == null || validationResult.Errors == null)
+            {
+                return new FluentValidation.Results.ValidationResult();
+            }
+
+            return validationResult;
         }
 
-        //public FluentValidation.Results.ValidationResult Validate(object additonalContext)
-        //{
-        //    var validationResult = ValidationEngine.Validate(GetType(), this, additonalContext);
+        public FluentValidation.Results.ValidationResult Validate(object additonalContext)
+        {
+            var validationResult = ValidationEngine.Validate(GetType(), this, additonalContext);
 
-        //    if (validationResult == null || validationResult.Errors == null)
-        //    {
-        //        return new FluentValidation.Results.ValidationResult();
-        //    }
+            if (validationResult == null || validationResult.Errors == null)
+            {
+                return new FluentValidation.Results.ValidationResult();
+            }
 
-        //    return validationResult;
-        //}
+            return validationResult;
+        }
+
+       
     }
 
     public static class ValidatableObjectBaseExtension

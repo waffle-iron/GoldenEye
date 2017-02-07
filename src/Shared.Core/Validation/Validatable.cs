@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Reflection;
 using FluentValidation;
 using FluentValidation.Results;
 
@@ -9,14 +11,14 @@ namespace GoldenEye.Shared.Core.Validation
     public abstract class Validatable
     {
         private ValidationResult validationResult = null;
-        //[NotMapped]
+        [NotMapped]
         [Browsable(false)]
         public ValidationResult ValidationResult
         {
             get { return validationResult; }
             set { validationResult = value; }
         }
-        //[NotMapped]
+        [NotMapped]
         [Browsable(false)]
         public bool Valid
         {
@@ -30,18 +32,18 @@ namespace GoldenEye.Shared.Core.Validation
         {
             var objectType = this.GetType();
 
-            //if (objectType.BaseType != null && objectType.Namespace == "System.Data.Entity.DynamicProxies")
-            //{
-            //    objectType = objectType.BaseType;
-            //}
-            //var type = objectType.CustomAttributes;
+            if (objectType.GetTypeInfo().BaseType != null && objectType.Namespace == "System.Data.Entity.DynamicProxies")
+            {
+                objectType = objectType.GetTypeInfo().BaseType;
+            }
+            var type = objectType.GetTypeInfo().CustomAttributes;
 
-            //var validatorAttribute = type.First(x => x.AttributeType.Name == "ValidatorAttribute");
-           // var validatorType = validatorAttribute.ConstructorArguments.First(x => x.ArgumentType.Name == "Type").Value;
-            //var validator = Activator.CreateInstance((Type)validatorType);
+            var validatorAttribute = type.First(x => x.AttributeType.Name == "ValidatorAttribute");
+            var validatorType = validatorAttribute.ConstructorArguments.First(x => x.ArgumentType.Name == "Type").Value;
+            var validator = Activator.CreateInstance((Type)validatorType);
 
 
-            //Validate((IValidator)validator);
+            Validate((IValidator)validator);
 
             return Valid;
         }
