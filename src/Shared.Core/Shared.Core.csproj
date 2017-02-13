@@ -254,6 +254,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="web.config" />
+    <Content Include="project.json" />
     <None Include="web.Debug-Net451.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
