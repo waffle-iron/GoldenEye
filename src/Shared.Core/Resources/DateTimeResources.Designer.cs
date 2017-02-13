@@ -8,8 +8,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GoldenEye.Shared.Core.Resources {
+namespace Shared.Core.Resources {
     using System;
+    using System.Reflection;
     
     
     /// <summary>
@@ -39,7 +40,7 @@ namespace GoldenEye.Shared.Core.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GoldenEye.Shared.Core.Resources.DateTimeResources", typeof(DateTimeResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Shared.Core.Resources.DateTimeResources", typeof(DateTimeResources).GetTypeInfo().Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

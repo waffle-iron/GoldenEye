@@ -9,8 +9,11 @@ namespace GoldenEye.Shared.Core.Extensions.Exceptions
         public static string FormatErrorMessage(this Exception exception)
         {
             return string.Empty;
-            //var exceptionProvider = IOCContainer.Get<IExceptionProvider>();
-            //return exceptionProvider.HandleException(exception).Trim();
+#if DNX40
+            var exceptionProvider = IOCContainer.Get<IExceptionProvider>();
+            return exceptionProvider.HandleException(exception).Trim();
+#endif
+
         }
 
         public static string FormatErrorMessage(this Exception exception, string header)
