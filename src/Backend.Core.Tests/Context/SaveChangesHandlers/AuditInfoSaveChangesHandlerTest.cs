@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GoldenEye.Backend.Business.Entities;
 using GoldenEye.Backend.Business.Context;
 using GoldenEye.Backend.Core.Context.SaveChangesHandlers;
-using Moq;
 using System.Linq;
 using GoldenEye.Backend.Core.Context;
 using GoldenEye.Shared.Core.Security;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GoldenEye.Backend.Core.Tests.Context.SaveChangesHandlers
 {
