@@ -27,12 +27,20 @@ namespace GoldenEye.Shared.Core.Utils.Cryptography
             // Step 1. We hash the passphrase using MD5
             // We use the MD5 hash generator as the result is a 128 bit byte array
             // which is a valid length for the TripleDES encoder we use below
-
-            var hashProvider = new MD5CryptoServiceProvider();
-            byte[] tdesKey = hashProvider.ComputeHash(utf8.GetBytes(Key));
+            byte[] tdesKey;
+            using (var md5 = MD5.Create())
+            {
+                tdesKey = md5.ComputeHash(utf8.GetBytes(Key));
+                
+            }
 
             // Step 2. Create a new TripleDESCryptoServiceProvider object
-            var tdesAlgorithm = new TripleDESCryptoServiceProvider { Key = tdesKey, Mode = CipherMode.ECB, Padding = PaddingMode.PKCS7 };
+
+            var tdesAlgorithm = TripleDES.Create();
+            tdesAlgorithm.Key = tdesKey;
+            tdesAlgorithm.Mode=CipherMode.ECB;
+            tdesAlgorithm.Padding=PaddingMode.PKCS7;
+
 
             // Step 3. Setup the encoder
 
@@ -48,8 +56,9 @@ namespace GoldenEye.Shared.Core.Utils.Cryptography
             finally
             {
                 // Clear the TripleDes and Hashprovider services of any sensitive information
-                tdesAlgorithm.Clear();
-                hashProvider.Clear();
+
+                //tdesAlgorithm.Clear();
+                //hashProvider.Clear();
             }
 
             // Step 6. Return the encrypted string as a base64 encoded string
@@ -73,12 +82,15 @@ namespace GoldenEye.Shared.Core.Utils.Cryptography
             // We use the MD5 hash generator as the result is a 128 bit byte array
             // which is a valid length for the TripleDES encoder we use below
 
-            using (var hashProvider = new MD5CryptoServiceProvider())
+            using (var hashProvider = MD5.Create())
             {
                 byte[] tdesKey = hashProvider.ComputeHash(utf8.GetBytes(Key));
 
                 // Step 2. Create a new TripleDESCryptoServiceProvider object
-                var tdesAlgorithm = new TripleDESCryptoServiceProvider { Key = tdesKey, Mode = CipherMode.ECB, Padding = PaddingMode.PKCS7 };
+                var tdesAlgorithm = TripleDES.Create();
+                tdesAlgorithm.Key = tdesKey;
+                tdesAlgorithm.Mode = CipherMode.ECB;
+                tdesAlgorithm.Padding = PaddingMode.PKCS7;
 
                 // Step 3. Setup the decoder
 
@@ -94,8 +106,7 @@ namespace GoldenEye.Shared.Core.Utils.Cryptography
                 finally
                 {
                     // Clear the TripleDes and Hashprovider services of any sensitive information
-                    tdesAlgorithm.Clear();
-                    hashProvider.Clear();
+
                 }
             }
 

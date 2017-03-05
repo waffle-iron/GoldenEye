@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 
 namespace GoldenEye.Shared.Core.Extensions.Reflection
 {
@@ -13,7 +14,7 @@ namespace GoldenEye.Shared.Core.Extensions.Reflection
         Func<TAttribute, TValue> valueSelector)
         where TAttribute : Attribute
         {
-            var att = type.GetCustomAttributes(
+            var att = type.GetTypeInfo().GetCustomAttributes(
                 typeof(TAttribute), true
             ).FirstOrDefault() as TAttribute;
             return att != null ? valueSelector(att) : default(TValue);

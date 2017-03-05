@@ -8,15 +8,16 @@ namespace GoldenEye.Shared.Core.Extensions.Threading
     {
         public static T WithUiCulture<T>(this Thread currentThread, string culture, Func<T> doAction)
         {
-            var currentUiCulture = currentThread.CurrentUICulture;
+            //var currentUiCulture = currentThread.;
 
-            currentThread.CurrentUICulture = new CultureInfo(culture);
+            //currentThread.CurrentUICulture = new CultureInfo(culture);
 
-            T returnValue = doAction();
+            //T returnValue = doAction();
 
-            currentThread.CurrentUICulture = currentUiCulture;
+            //currentThread.CurrentUICulture = currentUiCulture;
 
-            return returnValue;
+            //return returnValue;
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,7 +1,13 @@
-﻿using System.Configuration;
+﻿using System;
+using Microsoft.Extensions.Configuration;
 
-namespace GoldenEye.Shared.Core.Configuration
+namespace GoldenEye.Shared.Core.ConfigurationHelper
 {
+    /// <summary>
+    /// Configuration Manager not exists in net core 
+    /// Need to be fixed with:
+    /// https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration
+    /// </summary>
     public class ConfigHelper
     {
         public static bool IsInTestMode
@@ -18,15 +24,16 @@ namespace GoldenEye.Shared.Core.Configuration
         /// </summary>
         public static string GetSettingAsString(string settingName)
         {
+            throw new NotImplementedException();
             //    if (RoleEnvironment.IsAvailable)
             //        return RoleEnvironment.GetConfigurationSettingValue(settingName);
 
-            if (ConfigurationManager.AppSettings[settingName] != null)
-                return ConfigurationManager.AppSettings[settingName];
+            //if (Configuration[settingName] != null)
+            //    return ConfigurationManager.AppSettings[settingName];
 
-            return ConfigurationManager.ConnectionStrings[settingName] != null
-                     ? ConfigurationManager.ConnectionStrings[settingName].ConnectionString
-                     : null;
+            //return ConfigurationManager.ConnectionStrings[settingName] != null
+            //         ? ConfigurationManager.ConnectionStrings[settingName].ConnectionString
+            //         : null;
         }
     }
 }
