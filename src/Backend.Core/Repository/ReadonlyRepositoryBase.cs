@@ -1,7 +1,7 @@
-using System.Data.Entity;
 using System.Linq;
 using GoldenEye.Backend.Core.Context;
 using GoldenEye.Backend.Core.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace GoldenEye.Backend.Core.Repository
 {

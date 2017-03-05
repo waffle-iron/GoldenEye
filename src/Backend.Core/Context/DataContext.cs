@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using GoldenEye.Backend.Core.Context.SaveChangesHandlers;
 using GoldenEye.Backend.Core.Context.SaveChangesHandlers.Base;
 using GoldenEye.Backend.Core.Entity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace GoldenEye.Backend.Core.Context
 {
@@ -17,19 +19,15 @@ namespace GoldenEye.Backend.Core.Context
             SetInitializer();
         }
 
+        protected DataContext(DbContextOptions<T> options) : base(options)
+        {
+            
+        }
+
         protected virtual void SetInitializer()
         {
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<T>());
-        }
+            Database.EnsureCreated();
 
-        protected DataContext(string name) : base(name)
-        {
-        
-        }
-
-        protected DataContext(IConnectionProvider connectionProvider)
-            : base(connectionProvider.Open(), false)
-        {
         }
 
         public new void Dispose()
@@ -38,11 +36,11 @@ namespace GoldenEye.Backend.Core.Context
             GC.SuppressFinalize(this);
         }
 
-        public DbContextTransaction BeginTransaction()
+        public IDbContextTransaction BeginTransaction()
         {
             return Database.BeginTransaction();
         }
-        
+
         public override int SaveChanges()
         {
             SaveChangesProcessor.Instance.RunAll(this);
